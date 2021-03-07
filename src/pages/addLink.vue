@@ -2,18 +2,19 @@
   def-layout
     div.container
       div.row.justify-content-center
-        div.col-9
-          course-search-card
+        div.col-6
+          add-link-card
 </template>
 
 <script>
 import defLayout from '../layouts/default'
-import courseSearchCard from '../components/courseSearchCard/courseSearchCard.component'
+
+import addLinkCard from '../components/addLinkCard/addLinkCard.component'
 
 export default {
   components: {
     defLayout,
-    courseSearchCard
+    addLinkCard
   }
 }
 </script>
