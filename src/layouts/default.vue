@@ -9,6 +9,14 @@
     div.container-fluid.custom-footer
 </template>
 
+<script>
+export default {
+  beforeMount () {
+    this.$store.dispatch('semesters')
+  }
+}
+</script>
+
 <style scoped>
 .custom-app {
   height: 90vh;

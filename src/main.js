@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './plugins/store'
-import './assets/styles/shards.min.css'
 
 Vue.config.productionTip = false
 

@@ -1,9 +1,24 @@
+import { getSemestersQ } from '../rest/semestersController'
+
 export const main = {
-  state: {},
+  state: {
+    semesters: []
+  },
 
-  getters: {},
+  getters: {
+    getSemesters: state => state.semesters
+  },
 
-  mutations: {},
+  mutations: {
+    setSemesters: (state, data) => { state.semesters = data }
+  },
 
-  actions: {}
+  actions: {
+    semesters: ({ commit }) => {
+      getSemestersQ().then(res => {
+        console.log(res)
+        commit('setSemesters', res.response)
+      })
+    }
+  }
 }

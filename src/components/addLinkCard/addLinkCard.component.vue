@@ -5,9 +5,7 @@
       input.form-control(placeholder="Select course")
       select.custom-select.mt-3
         option Select semester...
-        option 2020א
-        option 2020ב
-        option 2020ג
+        option(v-for="semester, index in $store.getters.getSemesters" :key="index" @click="activeSemester = semester") {{ semester.name }}
       input.form-control.mt-3(placeholder="Group name")
       input.form-control.mt-3(placeholder="Group link")
       div.row.justify-content-around.mt-3
@@ -19,6 +17,12 @@
 import { showToast } from '../../plugins/toast'
 
 export default {
+  data () {
+    return {
+      activeSemester: null
+    }
+  },
+
   methods: {
     saveBtnHandler () {
       showToast({
