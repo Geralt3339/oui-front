@@ -1,8 +1,8 @@
 <template lang="pug">
   def-layout
-    div.container
+    div.container-md
       div.row.justify-content-center
-        div.col-9
+        div.col-12.col-md-10.col-lg-9
           course-search-card
 </template>
 
@@ -17,3 +17,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

@@ -1,6 +1,6 @@
 <template lang="pug">
   div.card.card-body
-    div.container
+    div.container-md
       h3 Find #[i.fab.fa-whatsapp.text-success] chat
       autocomplete-form
       courses-list

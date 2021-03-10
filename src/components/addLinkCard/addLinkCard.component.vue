@@ -1,6 +1,6 @@
 <template lang="pug">
   div.card.card-body
-    div.container
+    div.container-md
       h3 Add link
       input.form-control(placeholder="Select course")
       select.custom-select.mt-3

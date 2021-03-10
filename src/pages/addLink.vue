@@ -1,8 +1,8 @@
 <template lang="pug">
   def-layout
-    div.container
+    div.container-md
       div.row.justify-content-center
-        div.col-6
+        div.col-12.col-md-8.col-lg-6
           add-link-card
 </template>
 
