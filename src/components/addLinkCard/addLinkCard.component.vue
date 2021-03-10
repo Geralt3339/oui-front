@@ -4,7 +4,6 @@
       h3 Add link
       input.form-control(placeholder="Select course")
       select.custom-select.mt-3
-        option Select semester...
         option(v-for="semester, index in $store.getters.getSemesters" :key="index" @click="activeSemester = semester") {{ semester.name }}
       input.form-control.mt-3(placeholder="Group name")
       input.form-control.mt-3(placeholder="Group link")

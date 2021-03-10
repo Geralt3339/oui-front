@@ -13,6 +13,12 @@ export default {
     return {
       activeSemester: null
     }
+  },
+
+  watch: {
+    '$store.getters.getSemesters' () {
+      this.activeSemester = this.$store.getters.getSemesters[0]
+    }
   }
 }
 </script>
