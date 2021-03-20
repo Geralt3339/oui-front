@@ -1,24 +1,78 @@
 <template lang="pug">
   form.input-group.custom-search-form
-    input.form-control.custom-autocomplete-input(v-model="activeCourseText" type="text" placeholder="Course number or name..." @click="autocompleteClickHandler" @input="autocompleteInputHandler")
+    input.form-control.custom-autocomplete-input(v-model="model" type="text" :placeholder="placeholder" @click="autocompleteClickHandler" @input="autocompleteInputHandler")
     div.custom-autocomplete(ref="autocomplete")
-      template(v-if="$store.getters.getCourses.length === 0")
+      template(v-if="autocomplete.length === 0")
         a.dropdown-item No results
       template(v-else)
-        a.dropdown-item.custom-dropdown-item.custom-autocompete-item(v-for="course, index in $store.getters.getCourses" :key="index" @click.prevent="courseClickHandler(course)") {{ course.number }} - {{ course.name }}
-    div.input-group-lg.input-group-append
-      button.btn.btn-outline-secondary.dropdown-toggle(data-toggle="dropdown") {{ activeSemester ? activeSemester.name : 'Semester..' }}
+        a.dropdown-item.custom-dropdown-item.custom-autocompete-item(v-for="item, index in $store.getters.getCourses" :key="index" @click.prevent="autocompleteItemClickHandler(item)") {{ autocompleteItemName(item) }}
+    div(v-if="dropdown").input-group-lg.input-group-append
+      button.btn.btn-outline-secondary.dropdown-toggle(data-toggle="dropdown") {{ dropdownActiveElement ? dropdownActiveElement.name : dropdownPlaceholder }}
       div.dropdown-menu
-        a.dropdown-item.custom-dropdown-item(v-for="semester, index in $store.getters.getSemesters" :key="index" @click.prevent="activeSemester = semester") {{ semester.name }}
+        template(v-if="dropdownItems.length === 0")
+          a.dropdown-item.custom-dropdown-item No results
+        template(v-else)
+          a.dropdown-item.custom-dropdown-item(v-for="item, index in dropdownItems" :key="index" @click.prevent="dropdownItemClickHandler(item)") {{ item.name }}
 </template>
 
 <script>
 export default {
+  props: {
+    value: {
+      type: String,
+      default: ''
+    },
+    autocomplete: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    dropdown: {
+      type: Boolean,
+      default: false
+    },
+    dropdownItems: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    placeholder: {
+      type: String,
+      default: ''
+    },
+    dropdownActiveElement: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    dropdownPlaceholder: {
+      type: String,
+      default: ''
+    },
+    onAutocompleteClick: {
+      type: Function,
+      default: () => {}
+    },
+    onAutocompleteItemClick: {
+      type: Function,
+      default: () => {}
+    },
+    onAutocompleteInput: {
+      type: Function,
+      default: () => {}
+    },
+    autocompleteItemName: {
+      type: Function,
+      default: () => ''
+    }
+  },
+
   data () {
     return {
-      activeSemester: null,
-      activeCourse: null,
-      activeCourseText: '',
+      model: this.value,
       autocompleteDebounce: null,
       documentClickListener: (event) => {
         console.log(event.target.classList.contains('custom-autocompete-item'))
@@ -44,30 +98,29 @@ export default {
     document.removeEventListener('keydown', this.documentEscKeyDownListener)
   },
 
-  watch: {
-    '$store.getters.getSemesters' () {
-      this.activeSemester = this.$store.getters.getSemesters[0]
-    }
-  },
-
   methods: {
     autocompleteClickHandler () {
       this.$refs.autocomplete.classList.add('custom-show')
-      this.$store.dispatch('courses', this.activeCourseText)
+      this.onAutocompleteClick()
     },
     autocompleteInputHandler () {
       if (!this.$refs.autocomplete.classList.contains('custom-show')) {
         this.$refs.autocomplete.classList.add('custom-show')
       }
+      this.$emit('input', this.model)
       clearTimeout(this.autocompleteDebounce)
       this.autocompleteDebounce = setTimeout(() => {
-        this.$store.dispatch('courses', this.activeCourseText)
+        this.onAutocompleteInput()
       }, 500)
     },
-    courseClickHandler (course) {
-      this.activeCourse = course
-      this.activeCourseText = `${course.number} - ${course.name}`
+    autocompleteItemClickHandler (autocompleteItem) {
+      this.model = this.autocompleteItemName(autocompleteItem)
+      this.$emit('input', this.model)
+      this.onAutocompleteItemClick(autocompleteItem)
       this.$refs.autocomplete.classList.remove('custom-show')
+    },
+    dropdownItemClickHandler (item) {
+      this.$emit('dropdown-active', item)
     }
   }
 }
