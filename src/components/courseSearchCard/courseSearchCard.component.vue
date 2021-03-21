@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import autocompleteForm from './autocompleteForm/autocompleteForm.component'
+import autocompleteForm from '../core/autocompleteForm/autocompleteForm.component'
 import groupesList from './groupesList/groupesList.component'
 
 export default {
@@ -41,7 +41,6 @@ export default {
     onCourseClickHandler (course) {
       this.$store.dispatch('groups', {
         course_number: course.number,
-        messenger_id: '0',
         semester: this.activeSemester
       })
     },
@@ -57,9 +56,6 @@ export default {
     courseNameHandler (course) {
       return `${course.number} - ${course.name}`
     }
-    // courseNameRefreshHandler (value) {
-    //   this.courseName = value
-    // }
   }
 }
 </script>

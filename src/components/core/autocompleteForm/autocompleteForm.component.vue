@@ -75,7 +75,6 @@ export default {
       model: this.value,
       autocompleteDebounce: null,
       documentClickListener: (event) => {
-        console.log(event.target.classList.contains('custom-autocompete-item'))
         if (!event.target.classList.contains('custom-autocomplete-input') && !event.target.classList.contains('custom-autocompete-item')) {
           this.$refs.autocomplete.classList.remove('custom-show')
         }
