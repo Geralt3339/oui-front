@@ -1,6 +1,6 @@
 <template lang="pug">
   div.card.card-body
-    div.container-md
+    div.container-md.px-0.px-md-3
       h3 Add link
       form(@submit.prevent="saveBtnHandler")
         autocomplete-form(v-model="model.courseTitle" :inputClass="!validations.course ? 'custom-validation-error' : ''" placeholder="Select course" :autocomplete="$store.getters.getCourses" :autocompleteItemName="courseNameHandler" :onAutocompleteItemClick="onCourseClickHandler" :onAutocompleteInput="onSearchInputHandler" :onAutocompleteClick="onSearchClickHandler")

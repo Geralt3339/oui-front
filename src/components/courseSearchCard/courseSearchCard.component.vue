@@ -1,6 +1,6 @@
 <template lang="pug">
   div.card.card-body
-    div.container-md
+    div.container-md.px-0.px-md-3
       h3 Find #[i.fab.fa-whatsapp.text-success] chat
       autocomplete-form(v-model="courseName" :autocomplete="$store.getters.getCourses" :autocompleteItemName="courseNameHandler" :dropdown="true" :dropdownItems="$store.getters.getSemesters" placeholder="Course number or name..." dropdownPlaceholder="Semester" :dropdownActiveElement="activeSemester" :onAutocompleteItemClick="onCourseClickHandler" :onAutocompleteInput="onSearchInputHandler" :onAutocompleteClick="onSearchClickHandler" :onDropdownItemClick="onSemesterClickHandler")
       template(v-if="$store.getters.getGroups.length > 0")

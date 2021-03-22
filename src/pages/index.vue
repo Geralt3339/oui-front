@@ -1,6 +1,6 @@
 <template lang="pug">
   def-layout
-    div.container-md
+    div.container-md.px-0.px-md-3
       div.row.justify-content-center
         div.col-12.col-md-10.col-lg-9
           course-search-card

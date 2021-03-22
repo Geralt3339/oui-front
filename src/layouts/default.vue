@@ -1,11 +1,11 @@
 <template lang="pug">
   div
     main
-      div.container.mb-4
+      div.container-md.mb-4
         div.main-title
           h1.font-weight-bold.page-title.text-primary The Open University of Israel.
           h2.font-weight-bold.page-title-2.text-secondary Student Community.
-        div.container-md.mt-5
+        div.container-md.px-0.px-md-3.mt-5
           slot
     footer.custom-footer
 </template>
