@@ -6,6 +6,13 @@ import router from './router'
 import store from './plugins/store'
 import './assets/styles/styles.css'
 
+// Bootstrap
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+// FontAwesome
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/brands'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
