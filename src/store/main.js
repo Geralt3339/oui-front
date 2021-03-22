@@ -62,7 +62,7 @@ export const main = {
         if (res.error) {
           console.log('addGroupQ error', res.error)
           showToast({
-            message: 'Sorry something went wrong',
+            message: `Error: ${res.error.reason}`,
             type: 'error',
             position: 'top-right',
             duration: 3000

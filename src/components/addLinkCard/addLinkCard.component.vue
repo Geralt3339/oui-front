@@ -2,20 +2,23 @@
   div.card.card-body
     div.container-md
       h3 Add link
-      autocomplete-form(v-model="course.title" placeholder="Select course" :autocomplete="$store.getters.getCourses" :autocompleteItemName="courseNameHandler" :onAutocompleteItemClick="onCourseClickHandler" :onAutocompleteInput="onSearchInputHandler" :onAutocompleteClick="onSearchClickHandler")
-      select.custom-select.mt-3
-        option(v-for="semester, index in $store.getters.getSemesters" :key="index" @click="activeSemester = semester") {{ semester.name }}
-      input.form-control.mt-3(v-model="model.name" placeholder="Group name")
-      input.form-control.mt-3(v-model="model.join_url" placeholder="Group link")
-      input.form-control.mt-3(placeholder="Photo url (optional)")
-      div.row.justify-content-around.mt-3
-        button.btn.btn-success(@click="saveBtnHandler" type="button" :disabled="loader")
-          template(v-if="loader")
-            span.spinner-border.spinner-border-sm(role="status" aria-hidden="true")
-            span.ml-1 Loading...
-          template(v-else)
-            span Save
-        button.btn.btn-outline-secondary(@click="$router.push('/')") Cancel
+      form(@submit.prevent="saveBtnHandler")
+        autocomplete-form(v-model="model.courseTitle" :inputClass="!validations.course ? 'custom-validation-error' : ''" placeholder="Select course" :autocomplete="$store.getters.getCourses" :autocompleteItemName="courseNameHandler" :onAutocompleteItemClick="onCourseClickHandler" :onAutocompleteInput="onSearchInputHandler" :onAutocompleteClick="onSearchClickHandler")
+        div(v-if="!validations.course").custom-validation-error-message.mt-1.ml-2 You must choose the course
+        select.custom-select.mt-3
+          option(v-for="semester, index in $store.getters.getSemesters" :key="index" @click="activeSemester = semester") {{ semester.name }}
+        input.form-control.mt-3(v-model="model.name" placeholder="Group name" :class="!validations.name ? 'custom-validation-error' : ''" @click="validations.name = true")
+        div(v-if="!validations.name").custom-validation-error-message.mt-1.ml-2 Group name is required
+        input.form-control.mt-3(v-model="model.join_url" :class="!validations.join_url ? 'custom-validation-error' : ''" placeholder="Group link" @click="validations.join_url = true")
+        div(v-if="!validations.join_url").custom-validation-error-message.mt-1.ml-2 Group link is required
+        div.row.justify-content-around.mt-3
+          button.btn.btn-success(type="submit" :disabled="loader")
+            template(v-if="loader")
+              span.spinner-border.spinner-border-sm(role="status" aria-hidden="true")
+              span.ml-1 Loading...
+            template(v-else)
+              span Save
+          button.btn.btn-outline-secondary(@click="$router.push('/')") Cancel
 </template>
 
 <script>
@@ -31,11 +34,14 @@ export default {
       loader: false,
       model: {
         name: '',
-        join_url: ''
+        join_url: '',
+        course: null,
+        courseTitle: ''
       },
-      course: {
-        title: '',
-        item: null
+      validations: {
+        course: true,
+        name: true,
+        join_url: true
       }
     }
   },
@@ -62,29 +68,54 @@ export default {
 
   methods: {
     saveBtnHandler () {
-      this.$store.dispatch('addGroup', {
-        ...this.model,
-        semester: {
-          ...this.activeSemester
-        },
-        course: {
-          number: this.course.item.number
-        }
-      })
+      if (this.validationsHandler()) {
+        this.$store.dispatch('addGroup', {
+          ...this.model,
+          semester: {
+            ...this.activeSemester
+          },
+          course: {
+            number: this.model.course.number
+          }
+        })
+      }
     },
     courseNameHandler (course) {
       return `${course.number} - ${course.name}`
     },
     onCourseClickHandler (course) {
       console.log('Course', course)
-      this.course.item = course
+      this.model.course = course
     },
     onSearchInputHandler () {
-      this.$store.dispatch('courses', this.course.title)
+      this.$store.dispatch('courses', this.model.courseTitle)
     },
     onSearchClickHandler () {
-      this.$store.dispatch('courses', this.course.title)
+      this.validations.course = true
+      this.$store.dispatch('courses', this.model.courseTitle)
+    },
+    validationsHandler () {
+      const keys = Object.keys(this.validations)
+      let validationStatus = true
+      keys.forEach(key => {
+        if (this.model[key] === '' || this.model[key] === null) {
+          this.validations[key] = false
+          validationStatus = false
+        }
+      })
+      return validationStatus
     }
   }
 }
 </script>
+
+<style scoped>
+.custom-validation-error {
+  border-color: #dc3545;
+}
+
+.custom-validation-error-message {
+  color: #dc3545;
+  font-size: 80%;
+}
+</style>

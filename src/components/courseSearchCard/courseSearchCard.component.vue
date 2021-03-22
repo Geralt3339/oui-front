@@ -2,7 +2,7 @@
   div.card.card-body
     div.container-md
       h3 Find #[i.fab.fa-whatsapp.text-success] chat
-      autocomplete-form(v-model="courseName" :autocomplete="$store.getters.getCourses" :autocompleteItemName="courseNameHandler" :dropdown="true" :dropdownItems="$store.getters.getSemesters" placeholder="Course number or name..." dropdownPlaceholder="Semester" :dropdownActiveElement="activeSemester" :onAutocompleteItemClick="onCourseClickHandler" :onAutocompleteInput="onSearchInputHandler" :onAutocompleteClick="onSearchClickHandler" @dropdown-active="onSemesterClickHandler")
+      autocomplete-form(v-model="courseName" :autocomplete="$store.getters.getCourses" :autocompleteItemName="courseNameHandler" :dropdown="true" :dropdownItems="$store.getters.getSemesters" placeholder="Course number or name..." dropdownPlaceholder="Semester" :dropdownActiveElement="activeSemester" :onAutocompleteItemClick="onCourseClickHandler" :onAutocompleteInput="onSearchInputHandler" :onAutocompleteClick="onSearchClickHandler" :onDropdownItemClick="onSemesterClickHandler")
       template(v-if="$store.getters.getGroups.length > 0")
         groupes-list
         h5 ... or #[router-link(to="/addLink") add a new one]
@@ -43,6 +43,7 @@ export default {
         course_number: course.number,
         semester: this.activeSemester
       })
+      this.activeCourse = course
     },
     onSearchInputHandler () {
       this.$store.dispatch('courses', this.courseName)
@@ -52,6 +53,12 @@ export default {
     },
     onSemesterClickHandler (data) {
       this.activeSemester = data
+      if (this.activeCourse.number) {
+        this.$store.dispatch('groups', {
+          course_number: this.activeCourse.number,
+          semester: this.activeSemester
+        })
+      }
     },
     courseNameHandler (course) {
       return `${course.number} - ${course.name}`

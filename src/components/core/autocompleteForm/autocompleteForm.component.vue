@@ -1,13 +1,13 @@
 <template lang="pug">
   form.input-group.custom-search-form
-    input.form-control.custom-autocomplete-input(v-model="model" type="text" :placeholder="placeholder" @click="autocompleteClickHandler" @input="autocompleteInputHandler")
+    input.form-control.custom-autocomplete-input(v-model="model" type="text" :class="inputClass" :placeholder="placeholder" @click="autocompleteClickHandler" @input="autocompleteInputHandler")
     div.custom-autocomplete(ref="autocomplete")
       template(v-if="autocomplete.length === 0")
         a.dropdown-item No results
       template(v-else)
         a.dropdown-item.custom-dropdown-item.custom-autocompete-item(v-for="item, index in $store.getters.getCourses" :key="index" @click.prevent="autocompleteItemClickHandler(item)") {{ autocompleteItemName(item) }}
     div(v-if="dropdown").input-group-lg.input-group-append
-      button.btn.btn-outline-secondary.dropdown-toggle(data-toggle="dropdown") {{ dropdownActiveElement ? dropdownActiveElement.name : dropdownPlaceholder }}
+      button.btn.btn-outline-secondary.dropdown-toggle(data-toggle="dropdown" id="dropdownMenuButton" type="button" aria-haspopup="true" aria-expanded="false") {{ dropdownActiveElement ? dropdownActiveElement.name : dropdownPlaceholder }}
       div.dropdown-menu
         template(v-if="dropdownItems.length === 0")
           a.dropdown-item.custom-dropdown-item No results
@@ -42,6 +42,10 @@ export default {
       type: String,
       default: ''
     },
+    onDropdownItemClick: {
+      type: Function,
+      default: () => {}
+    },
     dropdownActiveElement: {
       type: Object,
       default () {
@@ -67,6 +71,10 @@ export default {
     autocompleteItemName: {
       type: Function,
       default: () => ''
+    },
+    inputClass: {
+      type: String,
+      default: ''
     }
   },
 
@@ -119,7 +127,7 @@ export default {
       this.$refs.autocomplete.classList.remove('custom-show')
     },
     dropdownItemClickHandler (item) {
-      this.$emit('dropdown-active', item)
+      this.onDropdownItemClick(item)
     }
   }
 }
@@ -162,5 +170,9 @@ export default {
 
 .custom-dropdown-item {
   cursor: pointer;
+}
+
+.custom-validation-error {
+  border-color: #dc3545;
 }
 </style>
