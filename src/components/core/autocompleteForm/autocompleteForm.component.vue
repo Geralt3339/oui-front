@@ -1,18 +1,20 @@
 <template lang="pug">
-  form.input-group.custom-search-form
-    input.form-control.custom-autocomplete-input(v-model="model" type="text" :class="inputClass" :placeholder="placeholder" @click="autocompleteClickHandler" @input="autocompleteInputHandler")
+  div.input-group
+    input.form-control.custom-autocomplete-input.border-right-0(v-model="model" type="text" :class="inputClass" :placeholder="placeholder" @click="autocompleteClickHandler" @input="autocompleteInputHandler")
     div.custom-autocomplete(ref="autocomplete")
       template(v-if="autocomplete.length === 0")
         a.dropdown-item No results
       template(v-else)
         a.dropdown-item.custom-dropdown-item.custom-autocompete-item(v-for="item, index in $store.getters.getCourses" :key="index" @click.prevent="autocompleteItemClickHandler(item)") {{ autocompleteItemName(item) }}
-    div(v-if="dropdown").input-group-lg.input-group-append
-      button.btn.btn-outline-secondary.dropdown-toggle(data-toggle="dropdown" id="dropdownMenuButton" type="button" aria-haspopup="true" aria-expanded="false") {{ dropdownActiveElement ? dropdownActiveElement.name : dropdownPlaceholder }}
-      div.dropdown-menu
-        template(v-if="dropdownItems.length === 0")
-          a.dropdown-item.custom-dropdown-item No results
-        template(v-else)
-          a.dropdown-item.custom-dropdown-item(v-for="item, index in dropdownItems" :key="index" @click.prevent="dropdownItemClickHandler(item)") {{ item.name }}
+    div.input-group-append
+      span.input-group-text.bg-transparent.custom-autocomplete-icon(:class="inputClass" @click="clearIconClickHandler") #[i.fas.fa-times]
+      template(v-if="dropdown")
+        button.btn.btn-outline-secondary.dropdown-toggle.custom-dropdown-button(data-toggle="dropdown" id="dropdownMenuButton" type="button" aria-haspopup="true" aria-expanded="false") {{ dropdownActiveElement ? dropdownActiveElement.name : dropdownPlaceholder }}
+        div.dropdown-menu
+          template(v-if="dropdownItems.length === 0")
+            a.dropdown-item.custom-dropdown-item No results
+          template(v-else)
+            a.dropdown-item.custom-dropdown-item(v-for="item, index in dropdownItems" :key="index" @click.prevent="dropdownItemClickHandler(item)") {{ item.name }}
 </template>
 
 <script>
@@ -41,6 +43,10 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    onClearIconClick: {
+      type: Function,
+      default: () => {}
     },
     onDropdownItemClick: {
       type: Function,
@@ -95,6 +101,17 @@ export default {
     }
   },
 
+  computed: {
+    iconClass () {
+      if (!this.dropdown) {
+        return ''
+        // return `custom-autocomplete-icon-postion-fix`
+      } else {
+        return ''
+      }
+    }
+  },
+
   created () {
     document.addEventListener('click', this.documentClickListener)
     document.addEventListener('keydown', this.documentEscKeyDownListener)
@@ -107,8 +124,13 @@ export default {
 
   methods: {
     autocompleteClickHandler () {
-      this.$refs.autocomplete.classList.add('custom-show')
+      // this.$refs.autocomplete.classList.add('custom-show')
       this.onAutocompleteClick()
+    },
+    clearIconClickHandler () {
+      this.model = ''
+      this.$emit('input', this.model)
+      this.onClearIconClick()
     },
     autocompleteInputHandler () {
       if (!this.$refs.autocomplete.classList.contains('custom-show')) {
@@ -134,12 +156,6 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width: 576px) {
-  .custom-search-form button, .custom-search-form input {
-    font-size: 0.8rem!important;
-  }
-}
-
 .custom-autocomplete {
   max-height: 20rem;
   overflow: hidden;
@@ -172,7 +188,15 @@ export default {
   cursor: pointer;
 }
 
+.custom-dropdown-button {
+  margin-left: 18px;
+}
+
+.custom-autocomplete-icon {
+  cursor: pointer;
+}
+
 .custom-validation-error {
-  border-color: #dc3545;
+  border-color: #dc3545!important;
 }
 </style>

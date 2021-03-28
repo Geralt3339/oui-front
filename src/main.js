@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // FontAwesome
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/brands'
+import '@fortawesome/fontawesome-free/js/solid'
 
 Vue.config.productionTip = false
 

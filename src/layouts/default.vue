@@ -21,6 +21,7 @@ export default {
 <style scoped>
 main {
   margin-bottom: 60px;
+  /* background-color: #c5ede2; */
 }
 
 .custom-footer {

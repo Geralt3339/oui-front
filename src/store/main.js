@@ -85,6 +85,10 @@ export const main = {
           fulfield: status
         })
       })
+    },
+    groupsSearchReset: ({ commit }) => {
+      commit('setCourses', [])
+      commit('setGroups', [])
     }
   }
 }
