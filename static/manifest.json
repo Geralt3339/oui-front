@@ -1,0 +1,19 @@
+{
+  "name": "OUI groups finder",
+  "start_url": "/oui-front/index.html",
+  "short_name": "OUIGroups",
+  "description": "Open University of Israel students community",
+  "theme-color": "#3f51b5",
+  "icons": [
+    {
+      "src": "/static/logo/logo.png",
+      "type": "image/png",
+      "sizes": "200x200"
+    }
+  ],
+  "display": "standalone",
+  "background_color": "#fff",
+  "orientation": "portrait",
+  "dir": "ltr",
+  "lang": "en-US"
+}
