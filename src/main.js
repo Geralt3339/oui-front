@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/brands'
 import '@fortawesome/fontawesome-free/js/solid'
+// Service Worker
 
 Vue.config.productionTip = false
 

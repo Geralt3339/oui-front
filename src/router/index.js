@@ -22,6 +22,10 @@ export default new Router({
       component: addLink
     },
     {
+      path: '/index.html',
+      redirect: '/'
+    },
+    {
       path: '*',
       name: '404',
       component: errorComponent
