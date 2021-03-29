@@ -1,34 +1,38 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 
+import index from '../views/index'
+import addLink from '../views/addLink'
 import errorComponent from '../layouts/error'
-import index from '../pages/index'
-import addLink from '../pages/addLink'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
+const routes = [
+  {
+    path: '/',
+    name: 'index',
+    component: index
+  },
+  {
+    path: '/addLink',
+    name: 'addLink',
+    component: addLink
+  },
+  {
+    path: '/index.html',
+    redirect: '/'
+  },
+  {
+    path: '*',
+    name: '404',
+    component: errorComponent
+  }
+]
+
+const router = new VueRouter({
   mode: 'history',
-  base: '/oui-front/',
-  routes: [
-    {
-      path: '/',
-      name: 'index',
-      component: index
-    },
-    {
-      path: '/addLink',
-      name: 'addLink',
-      component: addLink
-    },
-    {
-      path: '/index.html',
-      redirect: '/'
-    },
-    {
-      path: '*',
-      name: '404',
-      component: errorComponent
-    }
-  ]
+  base: process.env.BASE_URL,
+  routes
 })
+
+export default router
