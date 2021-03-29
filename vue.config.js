@@ -1,7 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/oui-front/'
-    : '/',
+  publicPath: './',
   outputDir: 'oui-front',
   devServer: {
     port: 3000
@@ -9,6 +7,18 @@ module.exports = {
 
   pwa: {
     name: 'OUI groups finder',
-    manifestPath: 'manifest.json'
+    msTileColor: '#3f51b5',
+    themeColor: '#3f51b5',
+    appleMobileWebCache: 'Yes',
+    manifestOptions: {
+      name: 'OUI groups finder',
+      shortName: 'OUIGroups',
+      display: 'standalone',
+      backgroundColor: '#fff',
+      orientation: 'portrait',
+      dir: 'ltr',
+      lang: 'en-US',
+      description: 'Open University of Israel students community'
+    }
   }
 }

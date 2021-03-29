@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './registerServiceWorker'
+import wb from './registerServiceWorker'
 import router from './router'
 import store from './store'
 
@@ -23,3 +23,5 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.prototype.$workbox = wb
