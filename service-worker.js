@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/oui-front/precache-manifest.507ea05f7e435b46eac7431b471aa8d0.js"
+  "/oui-front/precache-manifest.9d3cb738ceb065f7ba1851a21e06d1a5.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "oui-front"});

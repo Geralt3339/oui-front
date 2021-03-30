@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/oui-front/img/oui-logo.3be66719.png"
   },
   {
-    "revision": "71860bbae1c8e0791d5fc86a5ddd235a",
+    "revision": "c0c80709e69ea734057cbffdc75db75a",
     "url": "/oui-front/index.html"
   },
   {
