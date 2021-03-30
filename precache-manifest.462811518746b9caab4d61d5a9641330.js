@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2dd20578d4784c487040",
-    "url": "/oui-front/css/app.606455c3.css"
+    "revision": "406c126056944e69d4a4",
+    "url": "/oui-front/css/app.74f23011.css"
   },
   {
     "revision": "e27fe5b14c2e3772638b",
@@ -12,12 +12,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/oui-front/img/oui-logo.3be66719.png"
   },
   {
-    "revision": "b35b6ba3b1196a932b156cfe9d4f9707",
+    "revision": "7114d177e1f8fd29329ead5322e4e973",
     "url": "/oui-front/index.html"
   },
   {
-    "revision": "2dd20578d4784c487040",
-    "url": "/oui-front/js/app.95d856ed.js"
+    "revision": "406c126056944e69d4a4",
+    "url": "/oui-front/js/app.0bd52a82.js"
   },
   {
     "revision": "e27fe5b14c2e3772638b",
