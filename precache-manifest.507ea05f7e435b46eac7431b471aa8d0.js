@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "406c126056944e69d4a4",
+    "revision": "c5f2ee5850abf15514a8",
     "url": "/oui-front/css/app.74f23011.css"
   },
   {
-    "revision": "e27fe5b14c2e3772638b",
+    "revision": "bfa8c62a09485e65c35a",
     "url": "/oui-front/css/chunk-vendors.b45ed4c9.css"
   },
   {
@@ -12,16 +12,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/oui-front/img/oui-logo.3be66719.png"
   },
   {
-    "revision": "7114d177e1f8fd29329ead5322e4e973",
+    "revision": "71860bbae1c8e0791d5fc86a5ddd235a",
     "url": "/oui-front/index.html"
   },
   {
-    "revision": "406c126056944e69d4a4",
-    "url": "/oui-front/js/app.0bd52a82.js"
+    "revision": "c5f2ee5850abf15514a8",
+    "url": "/oui-front/js/app.90fd8e0d.js"
   },
   {
-    "revision": "e27fe5b14c2e3772638b",
-    "url": "/oui-front/js/chunk-vendors.d6623224.js"
+    "revision": "bfa8c62a09485e65c35a",
+    "url": "/oui-front/js/chunk-vendors.b1ec2f68.js"
   },
   {
     "revision": "a15d49c0913e05b5cb5e177a32b169c8",
